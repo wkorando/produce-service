@@ -1,28 +1,34 @@
-package com.ibm.developer.producerservice;
+package com.ibm.developer.produce;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 
 import java.util.Arrays;
 
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.restdocs.JUnitRestDocumentation;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-@AutoConfigureRestDocs(outputDir = "target/snippets")
 public class ContractsBaseClass {
 
+	@Rule
+	public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation();
+
+	@Rule
+	public TestName testName = new TestName();
+	
 	@Autowired
 	private ProduceController controller;
 
@@ -39,8 +45,13 @@ public class ContractsBaseClass {
 						new Produce(2, "Apple", "Gala", 50),//
 						new Produce(3, "Corn", "Sweet", 1000), //
 						new Produce(4, "Pineapple", "", 300)));
-		StandaloneMockMvcBuilder standaloneMockMvcBuilder = MockMvcBuilders.standaloneSetup(controller);
-		RestAssuredMockMvc.standaloneSetup(standaloneMockMvcBuilder);
+		when(repo.findByName("Apple")).thenReturn(
+				Arrays.asList(new Produce(1, "Apple", "Granny Smith", 100), 
+						new Produce(2, "Apple", "Gala", 50)));
+		RestAssuredMockMvc.standaloneSetup(MockMvcBuilders
+				.standaloneSetup(controller)
+				.apply(documentationConfiguration(this.restDocumentation))
+				.alwaysDo(document(getClass().getSimpleName() + "_" + testName.getMethodName())));
 	}
 
 }

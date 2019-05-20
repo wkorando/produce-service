@@ -1,4 +1,4 @@
-package com.ibm.developer.producerservice;
+package com.ibm.developer.produce;
 
 public class ClientException extends RuntimeException {
 

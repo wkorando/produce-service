@@ -17,4 +17,4 @@ Billy Korando;
 
 A `GET` request to retrieve all movies
 
-operation::find-all-produce[snippets='response-fields,curl-request,http-response,response-fields']
+operation::ContractsTest_validate_find_all_produce[snippets='response-fields,curl-request,http-response	']

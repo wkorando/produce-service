@@ -48,6 +48,8 @@ public class ContractsBaseClass {
 		when(repo.findByName("Apple")).thenReturn(
 				Arrays.asList(new Produce(1, "Apple", "Granny Smith", 100), 
 						new Produce(2, "Apple", "Gala", 50)));
+		when(service.addNewProduce(new Produce(0, "Kiwi", "", 75))).thenReturn(new Produce(10, "Kiwi", "", 75));
+		when(service.addNewProduce(new Produce(0, "", "", 75))).thenThrow(new ClientException("Missing required value!"));
 		RestAssuredMockMvc.standaloneSetup(MockMvcBuilders
 				.standaloneSetup(controller)
 				.apply(documentationConfiguration(this.restDocumentation))

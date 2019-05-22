@@ -4,6 +4,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,11 +35,11 @@ public class ProduceController {
 //	public ResponseEntity<Produce> addNewProduce(@RequestBody Produce produce) {
 //		return ResponseEntity.ok(repo.save(produce));
 //	}
-	
-//	@PostMapping//FINAL
-//	public ResponseEntity<Produce> addNewProduce(@RequestBody Produce produce) {
-//		return ResponseEntity.ok(service.addNewProduce(produce));
-//	}
+//	
+	@PostMapping//FINAL
+	public ResponseEntity<Produce> addNewProduce(@RequestBody Produce produce) {
+		return ResponseEntity.ok(service.addNewProduce(produce));
+	}
 
 	@ExceptionHandler(ClientException.class)
 	public ResponseEntity<Object> returnClientErrorMessage(ClientException e) {

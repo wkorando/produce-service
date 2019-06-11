@@ -45,7 +45,7 @@ public class ContractsBaseClass {
 						new Produce(2, "Apple", "Gala", 50),//
 						new Produce(3, "Corn", "Sweet", 1000), //
 						new Produce(4, "Pineapple", "", 300)));
-		when(repo.findByName("Apple")).thenReturn(
+		when(service.findProduceByName("Apple")).thenReturn(
 				Arrays.asList(new Produce(1, "Apple", "Granny Smith", 100), 
 						new Produce(2, "Apple", "Gala", 50)));
 		when(service.findProduceByName("+")).thenThrow(new ClientException("Produce name must be alpha numeric!"));

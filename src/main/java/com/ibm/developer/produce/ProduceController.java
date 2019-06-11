@@ -28,15 +28,10 @@ public class ProduceController {
 
 	@GetMapping("/{name}")
 	public ResponseEntity<Iterable<Produce>> findProduceByName(@PathVariable String name) {
-		return ResponseEntity.ok(repo.findByName(name));
+		return ResponseEntity.ok(service.findProduceByName(name));
 	}
-//
-//	@PostMapping//INITIAL
-//	public ResponseEntity<Produce> addNewProduce(@RequestBody Produce produce) {
-//		return ResponseEntity.ok(repo.save(produce));
-//	}
-//	
-	@PostMapping//FINAL
+	
+	@PostMapping
 	public ResponseEntity<Produce> addNewProduce(@RequestBody Produce produce) {
 		return ResponseEntity.ok(service.addNewProduce(produce));
 	}

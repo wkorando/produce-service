@@ -17,4 +17,11 @@ public class ProduceService {
 		}
 		return repo.save(produce);
 	}
+
+	public Iterable<Produce> findProduceByName(String name) {
+		if (name.matches("[\\W]+")) {
+			throw new ClientException("Produce name must be alpha numeric!");
+		}
+		return repo.findByName(name);
+	}
 }
